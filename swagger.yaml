@@ -1,0 +1,96 @@
+swagger: '2.0' #version of Swagger
+info:
+  description: Sample Swagger Employer Company Demo #Give the description of API
+  version: 1.0.0 #API version
+  title: Swagger employer Demo # API title
+  license: #Swagger license info
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost # Host Name
+basePath: /v1 #Basepath when there are multiple versions of API running
+tags: # Tag information for each API operation. Multiple tags for multiple API operation
+  - name: employer company #Tag name
+    description: Everything about your employer and company#Tag description of API operation
+schemes:
+  - http #security schemes
+paths:
+  '/findemployerDetails/{employerId}': #Request Mapping path of REST API
+    get: #Request method type, GET,POST etc.
+      tags: # Refer to created tag above
+        - employer
+      summary: Find employer by ID #Summary
+      description: Returns a single employer #Description of API operation
+      operationId: getemployerDetails #Method name
+      produces:
+        - application/json #Response content type
+      parameters:
+        - name: employerId #Input parameter
+          in: path #path variable
+          description: ID of employer to return #description of parameter
+          required: true #Is mandatory
+          type: integer #data type
+          format: int64 #data type format, signed 64 bits
+      responses: # API response
+        '200': #Successful status code
+          description: successful operation #Successful status description
+          schema:
+            $ref: '#/definitions/employer' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid employer ID supplied #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: employer not found #Unsuccessful response description
+  '/findcompanyDetails/{companyId}': #Request Mapping path of REST API
+    get: #Request method type, GET,POST etc.
+      tags: # Refer to created tag above
+        - company
+      summary: Find company by ID #Summary
+      description: Returns a single company #Description of API operation
+      operationId: getcompanyDetails #Method name
+      produces:
+        - application/json #Response content type
+      parameters:
+        - name: companyId #Input parameter
+          in: path #path variable
+          description: ID of company to return #description of parameter
+          required: true #Is mandatory
+          type: integer #data type
+          format: int64 #data type format, signed 64 bits
+      responses: # API response
+        '200': #Successful status code
+          description: successful operation #Successful status description
+          schema:
+            $ref: '#/definitions/company' #Response object details
+        '400': #Unsuccessful response code
+          description: Invalid company ID supplied #Unsuccessful response description
+        '404': #Unsuccessful response code
+          description: company not found #Unsuccessful response description
+definitions: # Object definition
+  employer: #employer Object
+    type: object
+    properties: #Object properties
+      id: #Id attribute
+        type: integer
+        format: int64
+      firstName: #Firstname attribute
+        type: string
+        description: employer First Name #data type description
+      lastName: #Lastname attribute
+        type: string #Data type
+        description: employer Last Name #Data type description
+    xml:
+      name: employer #xml root element when returning xml
+  company: #company Object
+    type: object
+    properties: #Object properties
+      id: #Id attribute
+        type: string
+        description: company registration Id #data type description
+      firstName: #Firstname attribute
+        type: string
+        description: company First Name #data type description
+      lastName: #Lastname attribute
+        type: string #Data type
+        description: company Last Name #Data type description
+    xml:
+      name: company #xml root element when returning xml
+
